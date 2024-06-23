@@ -1,0 +1,22 @@
+-- count weekend days --
+
+declare
+start_date date := to_date('&start_date', 'dd-mon-yyyy'); -- Ensure the format matches your input
+end_date date := to_date('&end_date', 'dd-mon-yyyy');     -- Ensure the format matches your input
+current_date date;
+weekend_count number := 0;
+
+begin
+current_date := next_day(start_date - 1, 'SATURDAY');
+
+while current_date <= end_date 
+loop
+if to_char(current_date, 'DY') in ('SAT', 'SUN') 
+then weekend_count := weekend_count + 1;
+end if;
+current_date := current_date + 1;
+end loop;
+dbms_output.put_line('Number of weekend days: ' || weekend_count);
+end;
+/
+
